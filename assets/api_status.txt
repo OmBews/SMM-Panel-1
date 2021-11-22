@@ -1,0 +1,21 @@
+<?php
+$key = "example"; // your api key
+$order_id = "1234567"; // your order id
+$postdata = "key=$key&action=status&order_id=$order_id";
+
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, "https://example.com/api.php");
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+$chresult = curl_exec($ch);
+curl_close($ch);
+$json_result = json_decode($chresult, true);
+
+if ($json_result['error'] == FALSE) {
+	echo $json_result['status'];
+} else {
+	echo "Error";
+}
+?>
